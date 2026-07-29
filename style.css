@@ -351,9 +351,21 @@ section {
 }
 
 .logo {
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+
+.logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    transition: transform .3s ease;
+}
+
+.logo:hover img {
+    transform: scale(1.05);
 }
 
 .logo span {
@@ -405,7 +417,11 @@ section {
     align-items: center;
     justify-content: center;
 }
-
+@media (max-width: 768px) {
+    .logo img {
+        height: 40px;
+    }
+}
 
 /*==================================================
     8. HERO
