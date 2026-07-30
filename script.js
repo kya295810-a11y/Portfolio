@@ -152,33 +152,73 @@ document.addEventListener("DOMContentLoaded", () => {
     revealOnScroll(); // Trigger initial check
 
     /*==================================================
-    7. CERTIFICATE MODAL HANDLER
-==================================================*/
+    7. CERTIFICATE MODAL HANDLER (Improved)
+   ==================================================*/
 
 if (certificateModal && certificateModalImage) {
 
+    let modalOpen = false;
+    let isScrolling = false;
+    let scrollTimeout;
+
+    /*------------------------------------------
+        Detect scrolling (Mobile)
+    ------------------------------------------*/
+    window.addEventListener("scroll", () => {
+
+        isScrolling = true;
+
+        clearTimeout(scrollTimeout);
+
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 150);
+
+    }, { passive: true });
+
+    /*------------------------------------------
+        Open Modal
+    ------------------------------------------*/
     const openModal = (img) => {
 
         if (!img || !img.src) return;
+        if (modalOpen) return;
+
+        modalOpen = true;
 
         certificateModalImage.src = img.src;
         certificateModalImage.alt = img.alt || "Certificate Preview";
 
         certificateModal.classList.add("active");
-        document.body.style.overflow = "hidden";
+
+        body.style.overflow = "hidden";
+
     };
 
+    /*------------------------------------------
+        Close Modal
+    ------------------------------------------*/
     const closeModal = () => {
 
+        if (!modalOpen) return;
+
+        modalOpen = false;
+
         certificateModal.classList.remove("active");
-        document.body.style.overflow = "";
+
+        body.style.overflow = "";
 
         setTimeout(() => {
+
             certificateModalImage.removeAttribute("src");
-        }, 200);
+
+        }, 250);
 
     };
 
+    /*------------------------------------------
+        Card Click
+    ------------------------------------------*/
     certificateCards.forEach(card => {
 
         const img = card.querySelector(".certificate-image img");
@@ -187,51 +227,74 @@ if (certificateModal && certificateModalImage) {
 
         card.style.cursor = "pointer";
 
-        const openHandler = (e) => {
+        card.addEventListener("click", (e) => {
 
-            // Don't open modal when Verify button is clicked
+            // Ignore Verify button
             if (e.target.closest(".verify-btn")) return;
+
+            // Ignore while scrolling
+            if (isScrolling) return;
 
             e.preventDefault();
             e.stopPropagation();
 
             openModal(img);
 
-        };
-
-        // Desktop
-        card.addEventListener("click", openHandler);
-
-        // Mobile (Android & iPhone)
-        card.addEventListener("touchend", openHandler, {
-            passive: false
         });
 
     });
 
+    /*------------------------------------------
+        Close Button
+    ------------------------------------------*/
     if (certificateClose) {
+
         certificateClose.addEventListener("click", (e) => {
+
+            e.preventDefault();
             e.stopPropagation();
+
             closeModal();
+
         });
+
     }
 
+    /*------------------------------------------
+        Click Outside
+    ------------------------------------------*/
     certificateModal.addEventListener("click", (e) => {
 
         if (e.target === certificateModal) {
+
             closeModal();
+
         }
 
     });
 
+    /*------------------------------------------
+        ESC Key
+    ------------------------------------------*/
     document.addEventListener("keydown", (e) => {
 
         if (
             e.key === "Escape" &&
-            certificateModal.classList.contains("active")
+            modalOpen
         ) {
+
             closeModal();
+
         }
+
+    });
+
+    /*------------------------------------------
+        Prevent Image Drag
+    ------------------------------------------*/
+    certificateModalImage.addEventListener("dragstart", (e) => {
+
+        e.preventDefault();
 
     });
 
