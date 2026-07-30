@@ -3,882 +3,238 @@
 ==================================================*/
 
 document.addEventListener("DOMContentLoaded", () => {
-
     "use strict";
 
     /*==================================================
         1. DOM CACHE
     ==================================================*/
-
     const body = document.body;
-    const html = document.documentElement;
-
-    // Navigation
     const navbar = document.querySelector(".navbar");
     const menuBtn = document.querySelector(".menu-btn");
     const navLinks = document.querySelector(".nav-links");
     const navItems = document.querySelectorAll(".nav-links a");
-
-    // Sections
     const sections = document.querySelectorAll("section[id]");
-
-    // Hero
-    const hero = document.querySelector(".hero");
-    const heroGrid = document.querySelector(".hero-grid");
-    const heroContent = document.querySelector(".hero-content");
-    const heroImage = document.querySelector(".hero-image");
-    const imageBox = document.querySelector(".image-box");
-    const heroButtons = document.querySelector(".hero-buttons");
-
-    // About
-    const about = document.querySelector(".about");
-    const toolsTrack = document.querySelector(".tools-track");
-
-    // Projects
-    const projects = document.querySelector(".projects");
-    const featuredProject = document.querySelector(".featured-project");
-    const detailCards = document.querySelectorAll(".detail-card");
-
-    // Certificates
-    const certificateCards = document.querySelectorAll(".certificate-card");
-    const verifyButtons = document.querySelectorAll(".verify-btn");
-    const certificateModal = document.querySelector(".certificate-modal");
-    const certificateModalImage = document.querySelector(".certificate-modal img");
-    const certificateClose = document.querySelector(".certificate-close");
-
-    // Contact
-    const contactCards = document.querySelectorAll(".contact-card");
-    const socials = document.querySelectorAll(".socials a");
-
-    // Reveal Elements
+    const scrollProgress = document.querySelector(".scroll-progress");
+    const backToTopBtn = document.querySelector(".back-to-top");
+    const mouseGlow = document.querySelector(".mouse-glow");
     const revealElements = document.querySelectorAll(".reveal");
 
-    /*==================================================
-        2. GLOBAL SETTINGS
-    ==================================================*/
-
-    const MOBILE_BREAKPOINT = 768;
-    const NAVBAR_HEIGHT = 82;
-
-    let ticking = false;
-    let lastScrollY = window.scrollY;
-
-    const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
+    // Certificate Modal Elements
+    const certificateModal = document.getElementById("certificateModal");
+    const certificateModalImage = document.getElementById("certificateModalImage");
+    const certificateClose = document.querySelector(".certificate-close");
+    const certificateCards = document.querySelectorAll(".certificate-card");
 
     /*==================================================
-        3. HELPER FUNCTIONS
+        2. HELPER FUNCTIONS & DEBOUNCE
     ==================================================*/
-
-    const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
-
-    const clamp = (value, min, max) =>
-        Math.min(Math.max(value, min), max);
-
-    const debounce = (callback, delay = 150) => {
+    const debounce = (callback, delay = 100) => {
         let timeout;
-
         return (...args) => {
             clearTimeout(timeout);
-
-            timeout = setTimeout(() => {
-                callback(...args);
-            }, delay);
+            timeout = setTimeout(() => callback.apply(this, args), delay);
         };
     };
 
-    const rafThrottle = (callback) => {
-
-        return (...args) => {
-
-            if (ticking) return;
-
-            ticking = true;
-
-            requestAnimationFrame(() => {
-
-                callback(...args);
-
-                ticking = false;
-
-            });
-
-        };
-
-    };
-
     /*==================================================
-        4. NAVBAR
+        3. NAVIGATION & MOBILE MENU
     ==================================================*/
-
-    const updateNavbar = () => {
-
-        if (!navbar) return;
-
-        if (window.scrollY > 30) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-
-    };
-
-    /*==================================================
-        5. MOBILE MENU
-    ==================================================*/
-
-    const openMenu = () => {
-
-        if (!menuBtn || !navLinks) return;
-
-        navLinks.classList.add("active");
-
-        menuBtn.setAttribute("aria-expanded", "true");
-
-        body.style.overflow = "hidden";
-
-    };
-
-    const closeMenu = () => {
-
-        if (!menuBtn || !navLinks) return;
-
-        navLinks.classList.remove("active");
-
-        menuBtn.setAttribute("aria-expanded", "false");
-
-        body.style.overflow = "";
-
-    };
-
-    const toggleMenu = () => {
-
-        if (!navLinks) return;
-
-        if (navLinks.classList.contains("active")) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-
-    };
-
-    if (menuBtn) {
-
-        menuBtn.setAttribute("aria-label", "Toggle Navigation");
-
-        menuBtn.setAttribute("aria-expanded", "false");
-
-        menuBtn.addEventListener("click", toggleMenu);
-
-    }
-
-    navItems.forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            if (isMobile()) {
-                closeMenu();
+    if (menuBtn && navLinks) {
+        menuBtn.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+            const icon = menuBtn.querySelector("i");
+            if (icon) {
+                icon.classList.toggle("fa-bars");
+                icon.classList.toggle("fa-xmark");
             }
-
         });
 
-    });
-
-    /*==================================================
-        6. SMOOTH SCROLL
-    ==================================================*/
-
-    navItems.forEach(link => {
-
-        link.addEventListener("click", (event) => {
-
-            const href = link.getAttribute("href");
-
-            if (!href || !href.startsWith("#")) return;
-
-            const target = document.querySelector(href);
-
-            if (!target) return;
-
-            event.preventDefault();
-
-            const targetPosition =
-                target.offsetTop - NAVBAR_HEIGHT;
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: prefersReducedMotion
-                    ? "auto"
-                    : "smooth"
-            });
-
-        });
-
-    });
-
-    const scrollToTop = () => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: prefersReducedMotion
-                ? "auto"
-                : "smooth"
-
-        });
-
-    };
-
-    /*==================================================
-        7. ACTIVE NAVIGATION
-    ==================================================*/
-
-    const updateActiveNav = () => {
-
-        const scrollPosition =
-            window.scrollY + NAVBAR_HEIGHT + 80;
-
-        sections.forEach(section => {
-
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
-            const id = section.getAttribute("id");
-
-            if (
-                scrollPosition >= top &&
-                scrollPosition < top + height
-            ) {
-
-                navItems.forEach(link => {
-
-                    link.classList.remove("active");
-
-                    if (
-                        link.getAttribute("href") === `#${id}`
-                    ) {
-
-                        link.classList.add("active");
-
+        // Close mobile menu on link click
+        navItems.forEach(item => {
+            item.addEventListener("click", () => {
+                if (navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    const icon = menuBtn.querySelector("i");
+                    if (icon) {
+                        icon.classList.add("fa-bars");
+                        icon.classList.remove("fa-xmark");
                     }
-
-                });
-
-            }
-
+                }
+            });
         });
+    }
 
+    /*==================================================
+        4. SCROLL & PROGRESS INDICATOR
+    ==================================================*/
+    const handleScroll = () => {
+        const scrollY = window.scrollY;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        // Navbar blur state
+        if (navbar) {
+            if (scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        }
+
+        // Scroll Progress Bar
+        if (scrollProgress && totalHeight > 0) {
+            const progress = (scrollY / totalHeight) * 100;
+            scrollProgress.style.width = `${progress}%`;
+        }
+
+        // Back to Top button visibility
+        if (backToTopBtn) {
+            if (scrollY > 300) {
+                backToTopBtn.classList.add("active");
+            } else {
+                backToTopBtn.classList.remove("active");
+            }
+        }
+
+        // Active Navigation Highlight
+        sections.forEach(section => {
+            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 100;
+            const sectionId = section.getAttribute("id");
+
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                navItems.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${sectionId}`) {
+                        link.classList.add("active");
+                    }
+                });
+            }
+        });
     };
 
-    /*==================================================
-        8. REVEAL ANIMATIONS
-    ==================================================*/
+    window.addEventListener("scroll", handleScroll);
 
-    const revealObserver = new IntersectionObserver(
-
-        (entries, observer) => {
-
-            entries.forEach(entry => {
-
-                if (!entry.isIntersecting) return;
-
-                entry.target.classList.add("active");
-
-                observer.unobserve(entry.target);
-
+    // Back to top action
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
             });
-
-        },
-
-        {
-            root: null,
-            threshold: 0.15,
-            rootMargin: "0px 0px -80px 0px"
-        }
-
-    );
-
-    revealElements.forEach(element => {
-
-        revealObserver.observe(element);
-
-    });
-
-    const detailCardObserver = new IntersectionObserver(
-
-        (entries, observer) => {
-
-            entries.forEach((entry, index) => {
-
-                if (!entry.isIntersecting) return;
-
-                setTimeout(() => {
-
-                    entry.target.classList.add("active");
-
-                }, index * 120);
-
-                observer.unobserve(entry.target);
-
-            });
-
-        },
-
-        {
-            threshold: 0.15
-        }
-
-    );
-
-    detailCards.forEach(card => {
-
-        detailCardObserver.observe(card);
-
-    });
-
-    const certificateObserver = new IntersectionObserver(
-
-        (entries, observer) => {
-
-            entries.forEach((entry, index) => {
-
-                if (!entry.isIntersecting) return;
-
-                setTimeout(() => {
-
-                    entry.target.classList.add("active");
-
-                }, index * 100);
-
-                observer.unobserve(entry.target);
-
-            });
-
-        },
-
-        {
-            threshold: 0.12
-        }
-
-    );
-
-    certificateCards.forEach(card => {
-
-        certificateObserver.observe(card);
-
-    });
-
-    if (heroContent) {
-
-        heroContent.classList.add("fade-up");
-
+        });
     }
 
-    const liveLine = document.querySelector(".live-line");
+    /*==================================================
+        5. MOUSE GLOW EFFECT (Desktop Only)
+    ==================================================*/
+    if (mouseGlow && window.innerWidth > 768) {
+        window.addEventListener("mousemove", (e) => {
+            mouseGlow.style.left = `${e.clientX}px`;
+            mouseGlow.style.top = `${e.clientY}px`;
+        });
+    }
 
-    if (liveLine) {
+    /*==================================================
+        6. SCROLL REVEAL ANIMATIONS
+    ==================================================*/
+    const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
 
-        const lineObserver = new IntersectionObserver(
-
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (!entry.isIntersecting) return;
-
-                    liveLine.style.transform = "scaleX(1)";
-
-                });
-
-            },
-
-            {
-                threshold: 0.3
+        revealElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < triggerBottom) {
+                element.classList.add("active");
             }
+        });
+    };
 
-        );
-
-        lineObserver.observe(liveLine);
-
-    }
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll(); // Trigger initial check
 
     /*==================================================
-        9. HERO PARALLAX
-    ==================================================*/
+    7. CERTIFICATE MODAL HANDLER
+==================================================*/
 
-    if (imageBox && !prefersReducedMotion && !isMobile()) {
+if (certificateModal && certificateModalImage) {
 
-        const handleHeroParallax = rafThrottle((event) => {
+    const openModal = (img) => {
 
-            const rect = imageBox.getBoundingClientRect();
+        if (!img || !img.src) return;
 
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-
-            const rotateY = ((x / rect.width) - 0.5) * 12;
-            const rotateX = ((y / rect.height) - 0.5) * -12;
-
-            imageBox.style.transform = `
-                perspective(1200px)
-                rotateX(${rotateX}deg)
-                rotateY(${rotateY}deg)
-                translateY(-8px)
-            `;
-
-        });
-
-        imageBox.addEventListener("mousemove", handleHeroParallax);
-
-        imageBox.addEventListener("mouseleave", () => {
-
-            imageBox.style.transform = `
-                perspective(1200px)
-                rotateX(0deg)
-                rotateY(0deg)
-                translateY(0)
-            `;
-
-        });
-
-    }
-
-    if (toolsTrack) {
-
-        const toolsBox = toolsTrack.closest(".tools-box");
-
-        if (toolsBox) {
-
-            toolsBox.addEventListener("mouseenter", () => {
-
-                toolsTrack.style.animationPlayState = "paused";
-
-            });
-
-            toolsBox.addEventListener("mouseleave", () => {
-
-                toolsTrack.style.animationPlayState = "running";
-
-            });
-
-        }
-
-    }
-
-    /*==================================================
-        10. CERTIFICATE MODAL
-    ==================================================*/
-
-    const openCertificateModal = (imageSrc, imageAlt = "Certificate") => {
-
-        if (!certificateModal || !certificateModalImage) return;
-
-        certificateModalImage.src = imageSrc;
-        certificateModalImage.alt = imageAlt;
+        certificateModalImage.src = img.src;
+        certificateModalImage.alt = img.alt || "Certificate Preview";
 
         certificateModal.classList.add("active");
-
-        body.style.overflow = "hidden";
-
-        certificateClose?.focus();
-
+        document.body.style.overflow = "hidden";
     };
 
-    const closeCertificateModal = () => {
-
-        if (!certificateModal || !certificateModalImage) return;
+    const closeModal = () => {
 
         certificateModal.classList.remove("active");
-
-        body.style.overflow = "";
+        document.body.style.overflow = "";
 
         setTimeout(() => {
-
-            certificateModalImage.src = "";
-            certificateModalImage.alt = "";
-
-        }, 300);
+            certificateModalImage.removeAttribute("src");
+        }, 200);
 
     };
 
     certificateCards.forEach(card => {
 
-        const image = card.querySelector(".certificate-image img");
+        const img = card.querySelector(".certificate-image img");
 
-        if (!image) return;
-
-        image.style.cursor = "zoom-in";
-
-        image.addEventListener("click", () => {
-
-            openCertificateModal(
-
-                image.src,
-
-                image.alt
-
-            );
-
-        });
-
-    });
-
-    verifyButtons.forEach(button => {
-
-        button.addEventListener("click", event => {
-
-            const href = button.getAttribute("href");
-
-            if (!href || href === "#") {
-
-                event.preventDefault();
-
-            }
-
-        });
-
-    });
-
-    certificateClose?.addEventListener(
-
-        "click",
-
-        closeCertificateModal
-
-    );
-
-    certificateModal?.addEventListener(
-
-        "click",
-
-        event => {
-
-            if (
-
-                event.target === certificateModal
-
-            ) {
-
-                closeCertificateModal();
-
-            }
-
-        }
-
-    );
-
-    certificateModalImage?.addEventListener(
-
-        "click",
-
-        event => {
-
-            event.stopPropagation();
-
-        }
-
-    );
-
-    /*==================================================
-        11. CONTACT UTILITIES
-    ==================================================*/
-
-    const externalLinks = document.querySelectorAll(
-        'a[target="_blank"]'
-    );
-
-    externalLinks.forEach(link => {
-
-        if (!link.hasAttribute("rel")) {
-
-            link.setAttribute(
-                "rel",
-                "noopener noreferrer"
-            );
-
-        }
-
-    });
-
-    contactCards.forEach(card => {
-
-        const link = card.querySelector("a");
-
-        if (!link) return;
+        if (!img) return;
 
         card.style.cursor = "pointer";
 
-        card.addEventListener("click", (event) => {
+        const openHandler = (e) => {
 
-            if (event.target.closest("a")) return;
+            // Don't open modal when Verify button is clicked
+            if (e.target.closest(".verify-btn")) return;
 
-            link.click();
+            e.preventDefault();
+            e.stopPropagation();
 
-        });
-
-    });
-
-    const emailLinks = document.querySelectorAll(
-        'a[href^="mailto:"]'
-    );
-
-    emailLinks.forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            const email = link.href.replace("mailto:", "");
-
-            if (!navigator.clipboard) return;
-
-            navigator.clipboard.writeText(email)
-                .catch(() => {});
-
-        });
-
-    });
-
-    document.querySelectorAll(
-        ".btn-primary, .btn-secondary, .btn-outline"
-    ).forEach(button => {
-
-        button.addEventListener("focus", () => {
-
-            button.classList.add("focus-visible");
-
-        });
-
-        button.addEventListener("blur", () => {
-
-            button.classList.remove("focus-visible");
-
-        });
-
-    });
-
-    document.querySelectorAll("img").forEach(image => {
-
-        if (!image.hasAttribute("loading")) {
-
-            image.loading = "lazy";
-
-        }
-
-        if (!image.hasAttribute("decoding")) {
-
-            image.decoding = "async";
-
-        }
-
-        image.addEventListener("error", () => {
-
-            image.style.opacity = ".5";
-
-            console.warn(
-                "Image failed to load:",
-                image.getAttribute("src")
-            );
-
-        });
-
-    });
-
-    document.querySelectorAll('a[href="#"]').forEach(link => {
-
-        link.addEventListener("click", event => {
-
-            event.preventDefault();
-
-        });
-
-    });
-
-    /*==================================================
-        12. PERFORMANCE & GLOBAL LISTENERS
-    ==================================================*/
-
-    // Single Consolidated Scroll Listener
-    window.addEventListener(
-        "scroll",
-        rafThrottle(() => {
-
-            lastScrollY = window.scrollY;
-
-            updateNavbar();
-            updateActiveNav();
-
-        }),
-        { passive: true }
-    );
-
-    // Single Consolidated Resize Listener
-    window.addEventListener(
-        "resize",
-        debounce(() => {
-
-            if (!isMobile()) {
-                closeMenu();
-            }
-
-            if (imageBox) {
-                imageBox.style.transform = "";
-            }
-
-        }, 150)
-    );
-
-    // Single Consolidated Keydown Listener
-    document.addEventListener("keydown", event => {
-
-        const isInputActive = ["INPUT", "TEXTAREA"].includes(
-            document.activeElement.tagName
-        );
-
-        // Escape Key
-        if (event.key === "Escape") {
-
-            if (certificateModal?.classList.contains("active")) {
-                closeCertificateModal();
-            }
-
-            if (navLinks?.classList.contains("active")) {
-                closeMenu();
-            }
-
-        }
-
-        // Home Key
-        if (event.key === "Home" && !isInputActive) {
-
-            scrollToTop();
-
-        }
-
-    });
-
-    // Tab Visibility Handler
-    document.addEventListener("visibilitychange", () => {
-
-        if (!toolsTrack) return;
-
-        if (document.hidden) {
-
-            toolsTrack.style.animationPlayState = "paused";
-
-        } else {
-
-            toolsTrack.style.animationPlayState = "running";
-
-        }
-
-    });
-
-    // Page Restore Handler
-    window.addEventListener("pageshow", () => {
-
-        updateNavbar();
-        updateActiveNav();
-
-    });
-
-    // Before Unload Handler
-    window.addEventListener("beforeunload", () => {
-
-        if (certificateModal) {
-            certificateModal.classList.remove("active");
-        }
-
-        body.style.overflow = "";
-
-    });
-
-    // Single Consolidated Window Load Listener
-    window.addEventListener("load", () => {
-
-        body.classList.add("loaded");
-
-        updateNavbar();
-        updateActiveNav();
-
-        if (window.location.hash) {
-
-            const target = document.querySelector(window.location.hash);
-
-            if (target) {
-
-                window.scrollTo({
-
-                    top: target.offsetTop - NAVBAR_HEIGHT,
-
-                    behavior: "auto"
-
-                });
-
-            }
-
-        }
-
-    });
-
-    /*==================================================
-        13. INITIALIZATION
-    ==================================================*/
-
-    const initializePortfolio = () => {
-
-        updateNavbar();
-        updateActiveNav();
-
-        if (navLinks) {
-            navLinks.classList.remove("active");
-        }
-
-        if (menuBtn) {
-            menuBtn.setAttribute("aria-expanded", "false");
-        }
-
-        body.style.overflow = "";
-
-        // Console Branding & Info
-        console.log(
-            "%cPortfolio Ready 🚀",
-            "color:#63c7ff;font-size:16px;font-weight:bold;"
-        );
-
-        console.log(
-            "%cDesigned & Developed by Kyaw San Lin",
-            "color:#ffffff;font-size:13px;"
-        );
-
-        const portfolioInfo = {
-
-            developer: "Kyaw San Lin",
-
-            version: "1.0.0",
-
-            framework: "Vanilla JavaScript",
-
-            status: "Production"
+            openModal(img);
 
         };
 
-        Object.freeze(portfolioInfo);
+        // Desktop
+        card.addEventListener("click", openHandler);
 
-        console.table(portfolioInfo);
+        // Mobile (Android & iPhone)
+        card.addEventListener("touchend", openHandler, {
+            passive: false
+        });
 
-        console.log(
-            "%cPortfolio Script Successfully Loaded ✅",
-            "color:#63c7ff;font-size:16px;font-weight:bold;"
-        );
+    });
 
-        console.log(
-            "%cAll Components Initialized Successfully.",
-            "color:#9bdcff;font-size:13px;"
-        );
+    if (certificateClose) {
+        certificateClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeModal();
+        });
+    }
 
-    };
+    certificateModal.addEventListener("click", (e) => {
 
-    // Single startup execution
-    initializePortfolio();
+        if (e.target === certificateModal) {
+            closeModal();
+        }
+
+    });
+
+    document.addEventListener("keydown", (e) => {
+
+        if (
+            e.key === "Escape" &&
+            certificateModal.classList.contains("active")
+        ) {
+            closeModal();
+        }
+
+    });
+
+}
 
 });
