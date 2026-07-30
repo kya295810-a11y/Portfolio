@@ -361,7 +361,7 @@ section {
     height: 48px;
     width: auto;
     display: block;
-    transition: transform .3s ease;
+    transition: transform var(--transition);
 }
 
 .logo:hover img {
@@ -383,7 +383,7 @@ section {
     font-size: 16px;
     font-weight: 500;
     color: #bdbdbd;
-    transition: color .3s ease;
+    transition: color var(--transition);
 }
 
 .nav-links a:hover,
@@ -399,7 +399,7 @@ section {
     width: 0;
     height: 2px;
     background: var(--sky);
-    transition: width .3s ease;
+    transition: width var(--transition);
 }
 
 .nav-links a:hover::after,
@@ -417,21 +417,17 @@ section {
     align-items: center;
     justify-content: center;
 }
-@media (max-width: 768px) {
-    .logo img {
-        height: 40px;
-    }
-}
+
 
 /*==================================================
     8. HERO
 ==================================================*/
 
 .hero {
-    min-height: 100vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
-    padding-top: 110px;
+    padding: 110px 0 40px;
 }
 
 .hero-grid {
@@ -480,6 +476,7 @@ section {
     color: var(--sky);
 }
 
+
 .hero-buttons {
     display: flex;
     gap: var(--space-md);
@@ -489,6 +486,7 @@ section {
 .socials {
     display: flex;
     gap: 16px;
+    margin-top: 14px; /* Increase to 18px or 20px if you want more space */
 }
 
 .socials a {
@@ -541,6 +539,15 @@ section {
     box-shadow: 0 35px 80px rgba(0, 0, 0, .55), 0 0 120px rgba(99, 199, 255, .20);
 }
 
+/* ==========================================
+   Availability Badge
+========================================== */
+.availability{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:24px;
+}
 
 /*==================================================
     9. ABOUT & TECH STACK
@@ -550,7 +557,7 @@ section {
     position: relative;
     padding: var(--section-space) 0;
     background: #070b16;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .about::before {
@@ -1061,7 +1068,7 @@ section {
     border-radius: 999px;
     font-size: .85rem;
     font-weight: 500;
-    transition: transform .3s ease, background-color .3s ease, border-color .3s ease;
+    transition: transform var(--transition), background-color var(--transition), border-color var(--transition);
 }
 
 .tool-tags span:hover {
@@ -1278,8 +1285,10 @@ section {
 }
 
 .certificate-modal img {
-    width: min(90%, 950px);
-    max-height: 90vh;
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
     object-fit: contain;
     border-radius: 18px;
     box-shadow: 0 20px 80px rgba(0, 0, 0, .55), 0 0 45px rgba(87, 183, 255, .25);
@@ -1304,9 +1313,9 @@ section {
     align-items: center;
     border-radius: 50%;
     background: rgba(255, 255, 255, .08);
-    color: var(--white);
+    color: #fff;
     cursor: pointer;
-    transition: background-color .3s ease, color .3s ease, transform .3s ease;
+    transition: var(--transition);
     font-size: 22px;
 }
 
@@ -1563,11 +1572,10 @@ section {
 ==================================================*/
 
 /* Desktop Override (min-width: 769px) */
-@media (min-width: 769px) {
-    .image-box {
-        width: 100%;
-        max-width: 390px;
-        height: 690px;
+@media (min-width:769px){
+    .image-box{
+        max-width:370px;
+        height:560px;
     }
 }
 
@@ -1641,109 +1649,53 @@ section {
     }
 }
 
-/* 768px Breakpoint (Mobile / Tablet) */
+/* 768px Breakpoint (Merged Mobile / Tablet Queries) */
 @media (max-width: 768px) {
-    section,
-    .about {
-        padding: 90px 0;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 0 var(--space-md);
-    }
-
-    .hero {
-        padding-top: 100px;
-        min-height: auto;
+    .logo img {
+        height: 40px;
     }
 
     .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-
-    .hero-image {
-        order: -1;
-        width: 100%;
-    }
-
-    .image-box {
-        max-width: 280px;
-        height: 380px;
-        margin: 0 auto;
-    }
-
-    .hero-content {
         display: flex;
         flex-direction: column;
-        align-items: center;
     }
 
-    .hero-text {
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 30px;
+    .menu-btn {
+        display: flex;
     }
 
-    .service-list {
-        align-items: center;
+    .nav-links {
+        position: fixed;
+        top: 82px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 82px);
+        background: rgba(7, 7, 7, .96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
         justify-content: center;
+        gap: 32px;
+        transform: translateX(-100%);
+        transition: transform .35s ease;
     }
 
-    .service-list li {
-        font-size: 18px;
+    .nav-links.active {
+        transform: translateX(0);
     }
 
     .hero-buttons {
         flex-direction: column;
-        width: 100%;
-        gap: 14px;
+        align-items: stretch;
     }
 
-    .btn,
-    .btn-primary,
-    .btn-secondary {
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary {
         width: 100%;
-        justify-content: center;
     }
 
     .socials {
         justify-content: center;
-        margin-top: 10px;
-    }
-
-    .about-content p {
-        font-size: 1rem;
-        line-height: 1.9;
-    }
-
-    .tool-item {
-        min-width: 75px;
-    }
-
-    .tool-item i {
-        font-size: 2.5rem;
-    }
-
-    .tool-item img {
-        width: 42px;
-        height: 42px;
-    }
-
-    .tools-track {
-        gap: 40px;
-    }
-
-    .certificate-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .certificate-card {
-        max-width: 100%;
     }
 
     .contact-right {
@@ -1753,13 +1705,6 @@ section {
     .contact-buttons {
         flex-direction: column;
     }
-}
-
-/* 576px Breakpoint */
-@media (max-width: 576px) {
-    .project-heading {
-        flex-direction: column;
-    }
 
     .certificate-close {
         top: 20px;
@@ -1767,28 +1712,17 @@ section {
     }
 }
 
-/* 520px Breakpoint */
-@media (max-width: 520px) {
-    .project-badge {
-        font-size: 12px;
-    }
-}
-
-/* 480px Breakpoint */
-@media (max-width: 480px) {
-    .project-badge {
-        font-size: 11px;
-        padding: 8px 18px;
+/* 576px Breakpoint (Small Mobile) */
+@media (max-width: 576px) {
+    .certificate-grid {
+        grid-template-columns: 1fr;
     }
 
-    .browser-window,
-    .detail-card,
-    .certificate-card,
-    .contact-card {
-        border-radius: 18px;
+    .detail-card {
+        padding: 24px;
     }
 
     .live-card {
-        padding: 30px 20px;
+        padding: 28px 20px;
     }
 }
