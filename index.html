@@ -19,17 +19,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     </noscript>
-    <link rel="preload" href="images/optimized/profile-hero-560.webp" as="image" imagesrcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w" imagesizes="(max-width: 992px) min(72vw, 420px), 460px" fetchpriority="high">
-    <link rel="preload" href="style.css" as="style" fetchpriority="high">
-    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="style.css">
-    </noscript>
+    <link rel="preload" href="images/optimized/profile-hero-560.webp" as="image" type="image/webp" imagesrcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w" imagesizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) min(72vw, 420px), 280px" fetchpriority="high">
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root{--bg:#070707;--bg-secondary:#101010;--card:#131313;--white:#fff;--text:#dedede;--muted:#c7c7c7;--sky:#63c7ff;--sky-dark:#2caeff;--border:rgba(255,255,255,.08);--shadow:0 20px 50px rgba(0,0,0,.45);--radius:22px;--container:1200px}
+        :root{--bg:#070707;--bg-secondary:#101010;--card:#131313;--white:#fff;--text:#dedede;--muted:#c7c7c7;--sky:#63c7ff;--sky-dark:#2caeff;--border:rgba(255,255,255,.08);--shadow:0 20px 50px rgba(0,0,0,.45);--radius:22px;--container:1200px;--font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth;scroll-padding-top:90px}
-        body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--white);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body{font-family:var(--font-sans);background:var(--bg);color:var(--white);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-synthesis-weight:none}
         img{display:block;max-width:100%;height:auto}
         a{text-decoration:none;color:inherit}
         ul{list-style:none}
@@ -62,7 +58,7 @@
         .availability{display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted)}
         .status-dot,.online-dot{width:10px;height:10px;border-radius:50%;background:#27ff77;box-shadow:0 0 14px #27ff77}
         .hero-image{display:flex;justify-content:center}
-        .image-box{width:100%;max-width:280px;height:420px;overflow:hidden;border-radius:28px;border:1px solid rgba(99,199,255,.18);background:#111;box-shadow:0 25px 60px rgba(0,0,0,.45),0 0 80px rgba(99,199,255,.12)}
+        .image-box{width:min(100%,280px);aspect-ratio:4/5;height:auto;overflow:hidden;border-radius:28px;border:1px solid rgba(99,199,255,.18);background:#111;box-shadow:0 25px 60px rgba(0,0,0,.45),0 0 80px rgba(99,199,255,.12)}
         .image-box img{width:100%;height:100%;object-fit:cover;object-position:center top}
         @media (max-width:992px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero-content{text-align:center}.hero-buttons,.socials{justify-content:center}.service-list{justify-items:center}.hero-text{margin-inline:auto}}
         @media (max-width:768px){.container{padding:0 20px}.menu-btn{display:flex}.nav-links{position:fixed;top:82px;left:0;right:0;display:grid;gap:24px;padding:30px 20px;background:rgba(7,7,7,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transform:translateY(-150%);transition:transform .35s ease}.nav-links.active{transform:translateY(0)}.hero{padding-top:120px}.hero-buttons{flex-direction:column}.hero-buttons a{width:100%}}
@@ -222,13 +218,14 @@
                         <img
                             src="images/optimized/profile-hero-560.webp"
                             srcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w"
-                            sizes="(max-width: 992px) min(72vw, 420px), 460px"
+                            sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) min(72vw, 420px), 280px"
                             alt="Kyaw San Lin portrait"
                             width="840"
                             height="1050"
                             loading="eager"
                             fetchpriority="high"
-                            decoding="async">
+                            decoding="async"
+                            elementtiming="hero-image">
                     </figure>
                 </div>
             </div>
@@ -248,12 +245,13 @@
                             <img
                                 src="images/optimized/profile-about-560.webp"
                                 srcset="images/optimized/profile-about-360.webp 360w, images/optimized/profile-about-560.webp 560w, images/optimized/profile-about-840.webp 840w"
-                                sizes="(max-width: 992px) min(82vw, 420px), 460px"
+                                sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) min(82vw, 420px), 460px"
                                 alt="Kyaw San Lin portrait"
                                 width="840"
                                 height="1022"
                                 loading="lazy"
-                                decoding="async">
+                                decoding="async"
+                                fetchpriority="low">
                         </figure>
                     </div>
 
@@ -397,12 +395,13 @@
                                 <img
                                     src="images/optimized/acnecure7-home-960.webp"
                                     srcset="images/optimized/acnecure7-home-640.webp 640w, images/optimized/acnecure7-home-960.webp 960w, images/optimized/acnecure7-home-1280.webp 1280w"
-                                    sizes="(max-width: 992px) 100vw, 640px"
+                                    sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) calc(100vw - 40px), 680px"
                                     alt="AcneCure7 website screenshot"
                                     width="1280"
                                     height="680"
                                     loading="lazy"
-                                    decoding="async">
+                                    decoding="async"
+                                    fetchpriority="low">
                             </div>
                         </div>
                     </div>
@@ -793,7 +792,7 @@
         <button class="certificate-close" type="button" aria-label="Close certificate preview">
             <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
         </button>
-        <img src="" alt="Certificate Preview" id="certificateModalImage" width="1200" height="900" decoding="async">
+        <img alt="Certificate Preview" id="certificateModalImage" width="1200" height="900" decoding="async">
     </div>
 
     <script src="script.js" defer></script>
