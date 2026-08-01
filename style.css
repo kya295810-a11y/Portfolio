@@ -247,19 +247,15 @@ p {
 .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 60px;
+    height: 40px;
 }
 
 .logo img {
-    width: 160px;
-    height: 107px;
+    height: 40px;
+    width: auto;
+    max-width: none;
     object-fit: contain;
-    transition: transform var(--transition);
-}
-
-.logo:hover img {
-    transform: scale(1.03);
+    display: block;
 }
 
 .nav-links {

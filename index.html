@@ -42,8 +42,6 @@
         .navbar{position:fixed;inset:0 0 auto 0;z-index:999;background:rgba(7,7,7,.78);border-bottom:1px solid var(--border);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:background-color .35s ease,box-shadow .35s ease}
         .navbar.scrolled{background:rgba(7,7,7,.92);box-shadow:0 15px 40px rgba(0,0,0,.35)}
         .nav-container{height:82px;display:flex;align-items:center;justify-content:space-between}
-        .logo{display:flex;align-items:center;justify-content:center;height:60px}
-        .logo img{width:160px;height:107px;object-fit:contain}
         .nav-links{display:flex;align-items:center;gap:42px}
         .nav-links a{position:relative;color:#c8c8c8;font-size:16px;font-weight:500}
         .nav-links a.active,.nav-links a:hover{color:var(--white)}
@@ -144,7 +142,7 @@
     <header class="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo" aria-label="Kyaw San Lin home">
-                <img src="images/optimized/logo-160.png" srcset="images/optimized/logo-160.png 160w, images/optimized/logo-320.png 320w" sizes="160px" alt="Kyaw San Lin Logo" width="160" height="107" decoding="async">
+                <img src="images/logo.webp" width="60" height="40" alt="Kyaw San Lin Logo" decoding="async">
             </a>
 
             <nav aria-label="Primary">
@@ -213,8 +211,8 @@
                 <div class="hero-image">
                     <figure class="image-box">
                         <img
-                            src="images/optimized/profile-hero-560.jpg"
-                            srcset="images/optimized/profile-hero-360.jpg 360w, images/optimized/profile-hero-560.jpg 560w, images/optimized/profile-hero-840.jpg 840w"
+                            src="images/profile 2.webp"
+                            srcset="images/profile 2.webp 360w, images/profile 2.webp 560w, images/profile 2.webp-hero-840.webp 840w"
                             sizes="(max-width: 992px) min(72vw, 420px), 460px"
                             alt="Kyaw San Lin portrait"
                             width="840"
@@ -239,8 +237,8 @@
                     <div class="about-image">
                         <figure class="image-card">
                             <img
-                                src="images/optimized/profile-about-560.jpg"
-                                srcset="images/optimized/profile-about-360.jpg 360w, images/optimized/profile-about-560.jpg 560w, images/optimized/profile-about-840.jpg 840w"
+                                src="images/profile 3.webp"
+                                srcset="images/profile 3.webp-about-360.jpg 360w, images/profile 3.webp-about-560.jpg 560w, images/profile 3.webp-about-840.webp 840w"
                                 sizes="(max-width: 992px) min(82vw, 420px), 460px"
                                 alt="Kyaw San Lin portrait"
                                 width="840"
@@ -306,7 +304,7 @@
                             <span>Analytics</span>
                         </div>
                         <div class="tool-item">
-                            <img src="images/smerush.png" alt="SEMrush" width="48" height="48" loading="lazy" decoding="async">
+                            <img src="images/smerush.webp" alt="SEMrush" width="48" height="48" loading="lazy" decoding="async">
                             <span>SEMrush</span>
                         </div>
                         <div class="tool-item">
@@ -388,9 +386,8 @@
                             </div>
                             <div class="browser-image">
                                 <img
-                                    src="images/optimized/acnecure7-home-960.jpg"
-                                    srcset="images/optimized/acnecure7-home-640.jpg 640w, images/optimized/acnecure7-home-960.jpg 960w, images/optimized/acnecure7-home-1280.jpg 1280w"
-                                    sizes="(max-width: 992px) 100vw, 640px"
+                                    src="images/acnecure7-home.webp"
+                                   
                                     alt="AcneCure7 website screenshot"
                                     width="1280"
                                     height="680"
@@ -497,7 +494,7 @@
                 <section class="live-website reveal" aria-labelledby="live-website-title">
                     <div class="live-card">
                         <div class="live-logo">
-                            <img src="images/optimized/acnecure7-logo-160.png" srcset="images/optimized/acnecure7-logo-96.png 96w, images/optimized/acnecure7-logo-160.png 160w" sizes="82px" alt="AcneCure7 Logo" width="160" height="107" loading="lazy" decoding="async">
+                            <img src="images/acnecure7logo.webp"    alt="AcneCure7 Logo"  loading="lazy" decoding="async">
                         </div>
                         <div class="live-content">
                             <h3 id="live-website-title">Live Website</h3>
@@ -534,15 +531,14 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open IBM Search Engine Optimization and Content Marketing Certificate preview">
                             <img
-                                src="images/optimized/cert-ibm-480.jpg"
-                                srcset="images/optimized/cert-ibm-320.jpg 320w, images/optimized/cert-ibm-480.jpg 480w"
-                                sizes="(max-width: 768px) 100vw, 280px"
+                                src="images/ibm.webp"
+                                
                                 alt="IBM Search Engine Optimization and Content Marketing Certificate"
                                 width="480"
                                 height="367"
                                 loading="lazy"
                                 decoding="async"
-                                data-full-image="images/IBM SEO and Content Marketing.jpeg">
+                                data-full-image="images/ibm.webp">
                         </button>
                         <div class="certificate-content">
                             <div class="certificate-provider">
@@ -577,15 +573,9 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open Master ChatGPT Certificate preview">
                             <img
-                                src="images/optimized/cert-chatgpt-480.jpg"
-                                srcset="images/optimized/cert-chatgpt-320.jpg 320w, images/optimized/cert-chatgpt-480.jpg 480w"
-                                sizes="(max-width: 768px) 100vw, 280px"
-                                alt="Master ChatGPT Certificate"
-                                width="480"
-                                height="343"
-                                loading="lazy"
-                                decoding="async"
-                                data-full-image="images/Master ChatGPT.png">
+                                src="images/uniathena.webp"
+                                
+                                alt="Master ChatGPT Certificate">
                         </button>
                         <div class="certificate-content">
                             <div class="certificate-provider">
@@ -619,15 +609,15 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open Vibe Coding Certificate preview">
                             <img
-                                src="images/optimized/cert-vibecoding-480.jpg"
-                                srcset="images/optimized/cert-vibecoding-320.jpg 320w, images/optimized/cert-vibecoding-480.jpg 480w"
-                                sizes="(max-width: 768px) 100vw, 280px"
+                                src="images/vibecoding.webp"
+                               
+                               
                                 alt="Vibe Coding Certificate"
                                 width="480"
                                 height="354"
                                 loading="lazy"
                                 decoding="async"
-                                data-full-image="images/vibecoding.png">
+                                data-full-image="images/vibecoding.webp">
                         </button>
                         <div class="certificate-content">
                             <div class="certificate-provider">
@@ -662,15 +652,14 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open SHAW Academy Diploma preview">
                             <img
-                                src="images/optimized/cert-diploma-480.jpg"
-                                srcset="images/optimized/cert-diploma-320.jpg 320w, images/optimized/cert-diploma-480.jpg 480w"
-                                sizes="(max-width: 768px) 100vw, 280px"
+                                src="images/diploma.webp"
+                                
                                 alt="SHAW Academy Diploma"
                                 width="480"
                                 height="640"
                                 loading="lazy"
                                 decoding="async"
-                                data-full-image="images/diploma.png">
+                                data-full-image="images/diploma.webp">
                         </button>
                         <div class="certificate-content">
                             <div class="certificate-provider">
