@@ -576,6 +576,7 @@ p {
 }
 
 .image-card {
+    aspect-ratio: 840 / 1022;
     overflow: hidden;
     border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -696,45 +697,6 @@ p {
 
 .tool-item img {
     object-fit: contain;
-}
-
-.tool-glyph {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #0a1018;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
-}
-
-.tool-glyph.html {
-    background: #ff8c52;
-}
-
-.tool-glyph.css {
-    background: #5bc0ff;
-}
-
-.tool-glyph.js {
-    background: #f7df57;
-}
-
-.tool-glyph.wp {
-    background: #75c9ff;
-}
-
-.tool-glyph.canva {
-    background: #6ee7ff;
-}
-
-.tool-glyph.code {
-    background: #4facfe;
-}
-
-.tool-glyph.git {
-    background: #d1d5db;
 }
 
 .tool-item span:last-child {
@@ -1058,6 +1020,7 @@ p {
 .live-logo img {
     width: 65px;
     height: 65px;
+    aspect-ratio: 160 / 107;
     object-fit: contain;
 }
 

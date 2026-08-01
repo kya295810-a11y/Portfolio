@@ -11,15 +11,15 @@
     <link rel="canonical" href="https://kyawsanlin.com/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" media="print" onload="this.media='all'">
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     </noscript>
-    <link rel="preload" href="images/optimized/profile-hero-560.jpg" as="image" imagesrcset="images/optimized/profile-hero-360.jpg 360w, images/optimized/profile-hero-560.jpg 560w, images/optimized/profile-hero-840.jpg 840w" imagesizes="(max-width: 992px) min(72vw, 420px), 460px" fetchpriority="high">
+    <link rel="preload" href="images/optimized/profile-hero-560.webp" as="image" imagesrcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w" imagesizes="(max-width: 992px) min(72vw, 420px), 460px" fetchpriority="high">
     <link rel="preload" href="style.css" as="style" fetchpriority="high">
     <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
     <noscript>
@@ -75,7 +75,7 @@
   "@id": "https://kyawsanlin.com/#person",
   "name": "Kyaw San Lin",
   "url": "https://kyawsanlin.com/",
-  "image": "https://kyawsanlin.com/images/kyawsanlin.jpg",
+  "image": "https://kyawsanlin.com/images/kyawsanlin.webp",
   "description": "Kyaw San Lin is an SEO Specialist, Content Writer, Frontend Developer, and Virtual Assistant based in Malaysia. He specializes in SEO strategy, WordPress, AI-powered workflows, and modern web development.",
   "jobTitle": "SEO Specialist & Content Writer",
   "nationality": "Myanmar",
@@ -99,14 +99,23 @@
     </script>
     <script>
         window.addEventListener("load", () => {
-            const analytics = document.createElement("script");
-            analytics.async = true;
-            analytics.src = "https://www.googletagmanager.com/gtag/js?id=G-RHQHLQMEXX";
-            document.head.appendChild(analytics);
-            window.dataLayer = window.dataLayer || [];
-            window.gtag = function gtag() { window.dataLayer.push(arguments); };
-            window.gtag("js", new Date());
-            window.gtag("config", "G-RHQHLQMEXX");
+            const loadAnalytics = () => {
+                const analytics = document.createElement("script");
+                analytics.async = true;
+                analytics.src = "https://www.googletagmanager.com/gtag/js?id=G-RHQHLQMEXX";
+                document.head.appendChild(analytics);
+                window.dataLayer = window.dataLayer || [];
+                window.gtag = function gtag() { window.dataLayer.push(arguments); };
+                window.gtag("js", new Date());
+                window.gtag("config", "G-RHQHLQMEXX");
+            };
+
+            if ("requestIdleCallback" in window) {
+                window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+                return;
+            }
+
+            window.setTimeout(loadAnalytics, 1200);
         }, { once: true });
     </script>
 </head>
@@ -142,7 +151,7 @@
     <header class="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo" aria-label="Kyaw San Lin home">
-                <img src="images/logo.webp" width="60" height="40" alt="Kyaw San Lin Logo" decoding="async">
+                <img src="images/optimized/logo-120.webp" srcset="images/optimized/logo-120.webp 120w, images/optimized/logo-240.webp 240w" sizes="60px" width="60" height="40" alt="Kyaw San Lin Logo" decoding="async">
             </a>
 
             <nav aria-label="Primary">
@@ -211,8 +220,8 @@
                 <div class="hero-image">
                     <figure class="image-box">
                         <img
-                            src="images/profile 2.webp"
-                            srcset="images/profile 2.webp 360w, images/profile 2.webp 560w, images/profile 2.webp-hero-840.webp 840w"
+                            src="images/optimized/profile-hero-560.webp"
+                            srcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w"
                             sizes="(max-width: 992px) min(72vw, 420px), 460px"
                             alt="Kyaw San Lin portrait"
                             width="840"
@@ -237,8 +246,8 @@
                     <div class="about-image">
                         <figure class="image-card">
                             <img
-                                src="images/profile 3.webp"
-                                srcset="images/profile 3.webp-about-360.jpg 360w, images/profile 3.webp-about-560.jpg 560w, images/profile 3.webp-about-840.webp 840w"
+                                src="images/optimized/profile-about-560.webp"
+                                srcset="images/optimized/profile-about-360.webp 360w, images/optimized/profile-about-560.webp 560w, images/optimized/profile-about-840.webp 840w"
                                 sizes="(max-width: 992px) min(82vw, 420px), 460px"
                                 alt="Kyaw San Lin portrait"
                                 width="840"
@@ -386,8 +395,9 @@
                             </div>
                             <div class="browser-image">
                                 <img
-                                    src="images/acnecure7-home.webp"
-                                   
+                                    src="images/optimized/acnecure7-home-960.webp"
+                                    srcset="images/optimized/acnecure7-home-640.webp 640w, images/optimized/acnecure7-home-960.webp 960w, images/optimized/acnecure7-home-1280.webp 1280w"
+                                    sizes="(max-width: 992px) 100vw, 640px"
                                     alt="AcneCure7 website screenshot"
                                     width="1280"
                                     height="680"
@@ -494,7 +504,7 @@
                 <section class="live-website reveal" aria-labelledby="live-website-title">
                     <div class="live-card">
                         <div class="live-logo">
-                            <img src="images/acnecure7logo.webp"    alt="AcneCure7 Logo"  loading="lazy" decoding="async">
+                            <img src="images/optimized/acnecure7-logo-96.webp" srcset="images/optimized/acnecure7-logo-96.webp 96w, images/optimized/acnecure7-logo-160.webp 160w" sizes="65px" alt="AcneCure7 Logo" width="160" height="107" loading="lazy" decoding="async">
                         </div>
                         <div class="live-content">
                             <h3 id="live-website-title">Live Website</h3>
@@ -531,8 +541,9 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open IBM Search Engine Optimization and Content Marketing Certificate preview">
                             <img
-                                src="images/ibm.webp"
-                                
+                                src="images/optimized/cert-ibm-480.webp"
+                                srcset="images/optimized/cert-ibm-320.webp 320w, images/optimized/cert-ibm-480.webp 480w"
+                                sizes="(max-width: 768px) 100vw, 280px"
                                 alt="IBM Search Engine Optimization and Content Marketing Certificate"
                                 width="480"
                                 height="367"
@@ -573,9 +584,15 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open Master ChatGPT Certificate preview">
                             <img
-                                src="images/uniathena.webp"
-                                
-                                alt="Master ChatGPT Certificate">
+                                src="images/optimized/cert-uniathena-480.webp"
+                                srcset="images/optimized/cert-uniathena-320.webp 320w, images/optimized/cert-uniathena-480.webp 480w"
+                                sizes="(max-width: 768px) 100vw, 280px"
+                                alt="Master ChatGPT Certificate"
+                                width="480"
+                                height="343"
+                                loading="lazy"
+                                decoding="async"
+                                data-full-image="images/uniathena.webp">
                         </button>
                         <div class="certificate-content">
                             <div class="certificate-provider">
@@ -609,9 +626,9 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open Vibe Coding Certificate preview">
                             <img
-                                src="images/vibecoding.webp"
-                               
-                               
+                                src="images/optimized/cert-vibecoding-480.webp"
+                                srcset="images/optimized/cert-vibecoding-320.webp 320w, images/optimized/cert-vibecoding-480.webp 480w"
+                                sizes="(max-width: 768px) 100vw, 280px"
                                 alt="Vibe Coding Certificate"
                                 width="480"
                                 height="354"
@@ -621,7 +638,7 @@
                         </button>
                         <div class="certificate-content">
                             <div class="certificate-provider">
-                                <img src="images/vibecoding svg.png" alt="Vibe Coding" width="34" height="34" loading="lazy" decoding="async">
+                                <img src="images/vibecoding svg.webp" alt="Vibe Coding" width="34" height="34" loading="lazy" decoding="async">
                                 <span>Simplilearn</span>
                             </div>
                             <h3>AI Vibe Coding Workshop</h3>
@@ -652,8 +669,9 @@
                     <article class="certificate-card reveal">
                         <button class="certificate-image" type="button" aria-label="Open SHAW Academy Diploma preview">
                             <img
-                                src="images/diploma.webp"
-                                
+                                src="images/optimized/cert-diploma-480.webp"
+                                srcset="images/optimized/cert-diploma-320.webp 320w, images/optimized/cert-diploma-480.webp 480w"
+                                sizes="(max-width: 768px) 100vw, 280px"
                                 alt="SHAW Academy Diploma"
                                 width="480"
                                 height="640"

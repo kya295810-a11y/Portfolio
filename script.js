@@ -13,12 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const mouseGlow = document.querySelector(".mouse-glow");
     const revealElements = [...document.querySelectorAll(".reveal")];
     const toolsTrack = document.querySelector(".tools-track");
+    const toolsBox = document.querySelector(".tools-box");
     const modal = document.getElementById("certificateModal");
     const modalImage = document.getElementById("certificateModalImage");
     const modalCloseButton = document.querySelector(".certificate-close");
-    const certificatePreviewButtons = [...document.querySelectorAll(".certificate-image")];
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = window.matchMedia("(pointer:fine)").matches;
+    const scheduleIdleTask = window.requestIdleCallback
+        ? (callback) => window.requestIdleCallback(callback, { timeout: 1200 })
+        : (callback) => window.setTimeout(callback, 1);
 
     let ticking = false;
     let activeSectionId = sections[0]?.id || "home";
@@ -100,59 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (!reduceMotion && finePointer && mouseGlow) {
-        window.addEventListener("pointermove", (event) => {
-            if (glowFrame) {
-                return;
-            }
-
-            glowFrame = window.requestAnimationFrame(() => {
-                mouseGlow.style.transform = `translate3d(${event.clientX - 180}px, ${event.clientY - 180}px, 0)`;
-                glowFrame = 0;
-            });
-        }, { passive: true });
-    } else if (mouseGlow) {
-        mouseGlow.hidden = true;
-    }
-
-    if (toolsTrack && !toolsTrack.dataset.duplicated) {
-        toolsTrack.append(...[...toolsTrack.children].map((node) => node.cloneNode(true)));
-        toolsTrack.dataset.duplicated = "true";
-    }
-
-    if ("IntersectionObserver" in window) {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-
-                entry.target.classList.add("active");
-                observer.unobserve(entry.target);
-            });
-        }, {
-            threshold: reduceMotion ? 0 : 0.15,
-            rootMargin: "0px 0px -10% 0px"
-        });
-
-        revealElements.forEach((element) => revealObserver.observe(element));
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveNav(entry.target.id);
-                }
-            });
-        }, {
-            rootMargin: "-45% 0px -45% 0px",
-            threshold: 0
-        });
-
-        sections.forEach((section) => sectionObserver.observe(section));
-    } else {
-        revealElements.forEach((element) => element.classList.add("active"));
-    }
-
     const openModal = (img) => {
         const fullImage = img.dataset.fullImage || img.currentSrc || img.src;
         if (!fullImage || !modal || !modalImage || modalOpen) {
@@ -182,29 +132,98 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 220);
     };
 
-    certificatePreviewButtons.forEach((button) => {
-        const image = button.querySelector("img");
-        if (!image) {
-            return;
+    scheduleIdleTask(() => {
+        if (!reduceMotion && finePointer && mouseGlow) {
+            window.addEventListener("pointermove", (event) => {
+                if (glowFrame) {
+                    return;
+                }
+
+                glowFrame = window.requestAnimationFrame(() => {
+                    mouseGlow.style.transform = `translate3d(${event.clientX - 180}px, ${event.clientY - 180}px, 0)`;
+                    glowFrame = 0;
+                });
+            }, { passive: true });
+        } else if (mouseGlow) {
+            mouseGlow.hidden = true;
         }
 
-        const openPreview = () => {
-            openModal(image);
-        };
+        if ("IntersectionObserver" in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
 
-        button.addEventListener("click", openPreview);
-    });
+                    entry.target.classList.add("active");
+                    observer.unobserve(entry.target);
+                });
+            }, {
+                threshold: reduceMotion ? 0 : 0.15,
+                rootMargin: "0px 0px -10% 0px"
+            });
 
-    modalCloseButton?.addEventListener("click", closeModal);
-    modal?.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            closeModal();
+            revealElements.forEach((element) => revealObserver.observe(element));
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveNav(entry.target.id);
+                    }
+                });
+            }, {
+                rootMargin: "-45% 0px -45% 0px",
+                threshold: 0
+            });
+
+            sections.forEach((section) => sectionObserver.observe(section));
+
+            if (toolsTrack && toolsBox && !toolsTrack.dataset.duplicated) {
+                const toolsObserver = new IntersectionObserver((entries, observer) => {
+                    if (!entries.some((entry) => entry.isIntersecting)) {
+                        return;
+                    }
+
+                    toolsTrack.append(...[...toolsTrack.children].map((node) => node.cloneNode(true)));
+                    toolsTrack.dataset.duplicated = "true";
+                    observer.disconnect();
+                }, {
+                    rootMargin: "200px 0px"
+                });
+
+                toolsObserver.observe(toolsBox);
+            }
+        } else {
+            revealElements.forEach((element) => element.classList.add("active"));
+
+            if (toolsTrack && !toolsTrack.dataset.duplicated) {
+                toolsTrack.append(...[...toolsTrack.children].map((node) => node.cloneNode(true)));
+                toolsTrack.dataset.duplicated = "true";
+            }
         }
-    });
 
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            closeModal();
-        }
+        document.querySelectorAll(".certificate-image").forEach((button) => {
+            const image = button.querySelector("img");
+            if (!image) {
+                return;
+            }
+
+            button.addEventListener("click", () => {
+                openModal(image);
+            });
+        });
+
+        modalCloseButton?.addEventListener("click", closeModal);
+        modal?.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
     });
 });
