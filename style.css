@@ -489,6 +489,7 @@ p {
 .image-card picture,
 .browser-image picture {
     display: block;
+    width: 100%;
     height: 100%;
 }
 
@@ -1181,7 +1182,9 @@ p {
 
 .certificate-image {
     position: relative;
-    height: 140px;
+    aspect-ratio: 2 / 1;
+    height: auto;
+    flex: 0 0 auto;
     overflow: hidden;
     padding: 0;
     border: 0;
@@ -1691,10 +1694,6 @@ p {
         min-height: auto;
     }
 
-    .certificate-image {
-        height: 180px;
-    }
-
     .certificate-modal {
         padding: 18px;
     }
@@ -1747,10 +1746,6 @@ p {
 
     .live-link {
         justify-content: center;
-    }
-
-    .certificate-image {
-        height: 165px;
     }
 
     .certificate-content {
