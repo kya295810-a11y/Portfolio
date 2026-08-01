@@ -954,7 +954,48 @@ p {
     background: rgba(59, 130, 246, 0.12);
     border-color: #3b82f6;
 }
+.report-info{
+    position:relative;
+    margin-top:18px;
+    padding-top:18px;
 
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:.88rem;
+
+    line-height:1.7;
+
+    max-width:520px;
+
+    margin-inline:auto;
+}
+
+.report-info::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:70px;
+
+    height:2px;
+
+    border-radius:999px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #3b82f6,
+        transparent
+    );
+}
 .tools-used {
     margin-top: 2rem;
     padding-top: 1.5rem;
