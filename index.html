@@ -12,14 +12,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=optional">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=optional" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=optional">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     </noscript>
-    <link rel="preload" href="images/optimized/profile-hero-560.webp" as="image" type="image/webp" imagesrcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w" imagesizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) min(72vw, 420px), 280px" fetchpriority="high">
+    <link rel="preload" href="images/optimized/profile-hero-320.jpg" as="image" type="image/jpeg" imagesrcset="images/optimized/profile-hero-320.jpg 320w, images/optimized/profile-hero-480.jpg 480w" imagesizes="(max-width: 576px) calc(100vw - 40px), (max-width: 768px) 72vw, 280px" fetchpriority="high" media="(max-width: 768px)">
+    <link rel="preload" href="images/optimized/profile-hero-560.webp" as="image" type="image/webp" imagesrcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w" imagesizes="(min-width: 769px) 280px" fetchpriority="high" media="(min-width: 769px)">
     <link rel="stylesheet" href="style.css">
     <style>
         :root{--bg:#070707;--bg-secondary:#101010;--card:#131313;--white:#fff;--text:#dedede;--muted:#c7c7c7;--sky:#63c7ff;--sky-dark:#2caeff;--border:rgba(255,255,255,.08);--shadow:0 20px 50px rgba(0,0,0,.45);--radius:22px;--container:1200px;--font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
@@ -215,17 +216,24 @@
 
                 <div class="hero-image">
                     <figure class="image-box">
-                        <img
-                            src="images/optimized/profile-hero-560.webp"
-                            srcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w"
-                            sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) min(72vw, 420px), 280px"
-                            alt="Kyaw San Lin portrait"
-                            width="840"
-                            height="1050"
-                            loading="eager"
-                            fetchpriority="high"
-                            decoding="async"
-                            elementtiming="hero-image">
+                        <picture>
+                            <source
+                                media="(max-width: 768px)"
+                                srcset="images/optimized/profile-hero-320.jpg 320w, images/optimized/profile-hero-480.jpg 480w"
+                                sizes="(max-width: 576px) calc(100vw - 40px), 72vw"
+                                type="image/jpeg">
+                            <img
+                                src="images/optimized/profile-hero-560.webp"
+                                srcset="images/optimized/profile-hero-360.webp 360w, images/optimized/profile-hero-560.webp 560w, images/optimized/profile-hero-840.webp 840w"
+                                sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 768px) 72vw, (max-width: 992px) min(72vw, 420px), 280px"
+                                alt="Kyaw San Lin portrait"
+                                width="840"
+                                height="1050"
+                                loading="eager"
+                                fetchpriority="high"
+                                decoding="async"
+                                elementtiming="hero-image">
+                        </picture>
                     </figure>
                 </div>
             </div>
@@ -242,16 +250,23 @@
                 <div class="about-wrapper">
                     <div class="about-image">
                         <figure class="image-card">
-                            <img
-                                src="images/optimized/profile-about-560.webp"
-                                srcset="images/optimized/profile-about-360.webp 360w, images/optimized/profile-about-560.webp 560w, images/optimized/profile-about-840.webp 840w"
-                                sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) min(82vw, 420px), 460px"
-                                alt="Kyaw San Lin portrait"
-                                width="840"
-                                height="1022"
-                                loading="lazy"
-                                decoding="async"
-                                fetchpriority="low">
+                            <picture>
+                                <source
+                                    media="(max-width: 768px)"
+                                    srcset="images/optimized/profile-about-320.jpg 320w, images/optimized/profile-about-480.jpg 480w"
+                                    sizes="(max-width: 576px) calc(100vw - 40px), 82vw"
+                                    type="image/jpeg">
+                                <img
+                                    src="images/optimized/profile-about-560.webp"
+                                    srcset="images/optimized/profile-about-360.webp 360w, images/optimized/profile-about-560.webp 560w, images/optimized/profile-about-840.webp 840w"
+                                    sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 768px) 82vw, (max-width: 992px) min(82vw, 420px), 460px"
+                                    alt="Kyaw San Lin portrait"
+                                    width="840"
+                                    height="1022"
+                                    loading="lazy"
+                                    decoding="async"
+                                    fetchpriority="low">
+                            </picture>
                         </figure>
                     </div>
 
@@ -392,16 +407,23 @@
                                 </div>
                             </div>
                             <div class="browser-image">
-                                <img
-                                    src="images/optimized/acnecure7-home-960.webp"
-                                    srcset="images/optimized/acnecure7-home-640.webp 640w, images/optimized/acnecure7-home-960.webp 960w, images/optimized/acnecure7-home-1280.webp 1280w"
-                                    sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 992px) calc(100vw - 40px), 680px"
-                                    alt="AcneCure7 website screenshot"
-                                    width="1280"
-                                    height="680"
-                                    loading="lazy"
-                                    decoding="async"
-                                    fetchpriority="low">
+                                <picture>
+                                    <source
+                                        media="(max-width: 768px)"
+                                        srcset="images/optimized/acnecure7-home-480.jpg 480w, images/optimized/acnecure7-home-640.jpg 640w"
+                                        sizes="calc(100vw - 40px)"
+                                        type="image/jpeg">
+                                    <img
+                                        src="images/optimized/acnecure7-home-960.webp"
+                                        srcset="images/optimized/acnecure7-home-640.webp 640w, images/optimized/acnecure7-home-960.webp 960w, images/optimized/acnecure7-home-1280.webp 1280w"
+                                        sizes="(max-width: 576px) calc(100vw - 40px), (max-width: 768px) calc(100vw - 40px), (max-width: 992px) calc(100vw - 40px), 680px"
+                                        alt="AcneCure7 website screenshot"
+                                        width="1280"
+                                        height="680"
+                                        loading="lazy"
+                                        decoding="async"
+                                        fetchpriority="low">
+                                </picture>
                             </div>
                         </div>
                     </div>
